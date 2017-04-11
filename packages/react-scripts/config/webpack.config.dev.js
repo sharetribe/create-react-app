@@ -37,7 +37,7 @@ var env = getClientEnvironment(publicUrl);
 // This is the development configuration.
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
-module.exports = {
+var config = {
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
   devtool: 'cheap-module-source-map',
@@ -238,3 +238,72 @@ module.exports = {
     tls: 'empty'
   }
 };
+
+// ================ start sharetribe-scripts changes ================ //
+
+const cssnext = require('postcss-cssnext');
+const atImport = require('postcss-import');
+const customProperties = require('postcss-custom-properties');
+
+// Remove original PostCSS config
+delete config.postcss;
+
+const styleLoader = {
+  loader: 'style-loader',
+};
+
+const cssLoader = {
+  loader: 'css-loader',
+  query: {
+    importLoaders: 1,
+    // sourceMap: true,
+    // modules: true,
+    // localIdentName: '[name]__[local]__[hash:base64:5]',
+  }
+};
+
+const postcssLoader = {
+  loader: 'postcss-loader',
+  // options: {
+  //   ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+  //   plugins: function () {
+  //     return [
+  //       atImport(),
+  //       customProperties({
+  //         // TODO: path might not be available after ejecting
+  //         variables: path.join(paths.appSrc, 'styles/variables.js'),
+  //       }),
+  //       cssnext({
+  //         browsers: [
+  //           '>1%',
+  //           'last 4 versions',
+  //           'Firefox ESR',
+  //           'not ie < 9', // React doesn't support IE8 anyway
+  //         ]
+  //       }),
+  //     ];
+  //   }
+  // }
+};
+
+// Add custom loader setup
+config.module.loaders = config.module.loaders.map(loader => {
+
+  // NOTE: Check that loader modifications are still valid when
+  // updating the upstream repo.
+
+  const isStyleLoader = loader.loader.startsWith('style');
+
+  if (isStyleLoader) {
+    return {
+      test: /\.css$/,
+      loaders: [styleLoader, cssLoader, postcssLoader],
+    };
+  } else {
+    return loader;
+  }
+});
+
+// ================ end sharetribe-scripts changes ================ //
+
+module.exports = config;
