@@ -291,21 +291,25 @@ const config = {
 // First validate the structure of the config to ensure that we mutate
 // the config with the correct assumptions.
 const hasRules =
-      config &&
-      config.module &&
-      config.module.rules &&
-      config.module.rules.length === 2;
-const hasOneOf = hasRules &&
-      config.module.rules[1].oneOf &&
-      config.module.rules[1].oneOf.length === 4;
-const hasCssLoader = hasOneOf &&
-      config.module.rules[1].oneOf[2].test &&
-      config.module.rules[1].oneOf[2].test.test('file.css');
+  config &&
+  config.module &&
+  config.module.rules &&
+  config.module.rules.length === 2;
+const hasOneOf =
+  hasRules &&
+  config.module.rules[1].oneOf &&
+  config.module.rules[1].oneOf.length === 4;
+const hasCssLoader =
+  hasOneOf &&
+  config.module.rules[1].oneOf[2].test &&
+  config.module.rules[1].oneOf[2].test.test('file.css');
 
 const configStructureKnown = hasRules && hasOneOf && hasCssLoader;
 
 if (!configStructureKnown) {
-  throw new Error('create-react-app config structure changed, please check webpack.config.dev.js and update to use the changed config');
+  throw new Error(
+    'create-react-app config structure changed, please check webpack.config.dev.js and update to use the changed config'
+  );
 }
 
 const atImport = require('postcss-import');
@@ -341,6 +345,11 @@ config.module.rules[1].oneOf[2] = {
               'Firefox ESR',
               'not ie < 9', // React doesn't support IE8 anyway
             ],
+            features: {
+              customProperties: {
+                preserve: true,
+              },
+            },
             flexbox: 'no-2009',
           }),
         ],
