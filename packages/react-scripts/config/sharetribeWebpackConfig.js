@@ -47,8 +47,9 @@ const getCSSModuleLocalIdent = function sharetribeGetLocalIdent(
 // CSS options: all CSS files will have CSS Modules turned "on".
 const cssOptionsWithModules = cssOptions =>
   Object.assign({}, cssOptions, {
-    modules: true,
-    getLocalIdent: getCSSModuleLocalIdent,
+    modules: {
+      getLocalIdent: getCSSModuleLocalIdent,
+    },
   });
 
 // PostCSS plugins:
