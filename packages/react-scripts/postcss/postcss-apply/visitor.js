@@ -93,9 +93,9 @@ class Visitor {
     }
 
     const setName = matches[2];
-    const { parent } = decl;
+    const { parent, value } = decl;
 
-    if (parent.selector !== ':root') {
+    if (value?.indexOf('{') === 0 && parent.selector !== ':root') {
       decl.warn(
         this.result,
         'Custom property set ignored: not scoped to top-level `:root` ' +
