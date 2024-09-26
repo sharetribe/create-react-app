@@ -25,7 +25,7 @@ which version of `react-scripts` this fork is built from.
   - There's naive implementation of PostCSS apply plugin that works on top of PostCSS v8
   - However, you should consider @apply syntax to be deprecated. We won't support it indefinitely.
 - Use [Loadable components](https://github.com/gregberge/loadable-components)
-  - Use these versions in your client app: "@loadable/component": "^5.15.2", "@loadable/server": "^5.15.2",
+  - Use these versions in your client app: "@loadable/component": "^5.16.4", "@loadable/server": "^5.16.5",
 - A separate `build-server` script that makes a build to use in SSR (server side rendering)
 - Show customized instructions how to run the production build bundle
 
