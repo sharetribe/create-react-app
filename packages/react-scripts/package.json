@@ -1,6 +1,6 @@
 {
   "name": "sharetribe-scripts",
-  "version": "6.0.2",
+  "version": "7.0.0",
   "description": "Fork of facebookincubator/create-react-app@5.0.1 with some additional features. This is a major version update to CRA",
   "repository": {
     "type": "git",
