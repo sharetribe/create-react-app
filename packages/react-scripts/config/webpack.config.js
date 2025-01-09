@@ -454,7 +454,7 @@ module.exports = function(webpackEnv, target = 'web') {
 
                   // Sharetribe custom: add loadable babel plugin for
                   // application files
-                  isTargetNode && require.resolve('@loadable/babel-plugin'),
+                  require.resolve('@loadable/babel-plugin'),
 
                   isEnvDevelopment &&
                     shouldUseReactRefresh &&
